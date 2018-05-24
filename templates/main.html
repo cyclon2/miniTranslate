@@ -1,0 +1,67 @@
+<html>
+    <head>
+        {% include 'partials/head.html' %}
+    </head>
+    <script>
+        $(document).on("change keyup", "#id_memo", function(){
+            $.ajax({
+                url: "/api/translate",
+                data: {
+                    "q" : $("#id_memo").val()
+                },
+                success: function(res){
+                    var data = JSON.parse(res);
+                    $("#id_result").text(data.result)
+                }
+            })
+        })
+        $(document).on("click", "#id_definitions_ko_btn", function(){
+            $.ajax({
+                url: "/api/definition/ko",
+                data: {
+                    "q" : $("#id_ko_memo").val()
+                },
+                success: function(res){
+                    var data = JSON.parse(res);
+                    var words = data.result.definitions;
+                    $("#id_definitions_en").empty();
+                    var item ="";
+                    for (w in words){
+                        item += "<p>" + words[w]+"</p>"
+                    }
+                    $("#id_definitions_ko").append(item)
+                }
+            })
+        })
+        $(document).on("click", "#id_definitions_en_btn", function(){
+            $.ajax({
+                url: "/api/definition/en",
+                data: {
+                    "q" : $("#id_en_memo").val()
+                },
+                success: function(res){
+                    var data = JSON.parse(res);
+                    var words = data.result[0].lemmatized;
+                    $("#id_definitions_en").empty();
+                    var item ="";
+                    for (w in words){
+                        item += "<p>" + words[w]+"</p>"
+                        item += "<p>" + data.result[1].definitions+"</p>"
+                    }
+                    $("#id_definitions_en").append(item)
+                }
+            })
+        })
+
+    </script>
+    <body>
+        <textarea id="id_ko_memo" placeholder="한글사전용"></textarea>
+        <input id="id_en_memo" placeholder="영영사전용"/>
+        <p id="id_result"></p>
+        <button id="id_definitions_ko_btn">definition</button>
+        <button id="id_definitions_en_btn">definition</button>
+        <h2>뜻</h2>
+        <p id="id_definitions_ko"></p>
+        <p id="id_definitions_en"></p>
+    </body>
+</html>
