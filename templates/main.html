@@ -7,7 +7,7 @@
             $.ajax({
                 url: "/api/translate",
                 data: {
-                    "q" : $("#id_memo").val()
+                    "q" : $("#id_ko_memo").val()
                 },
                 success: function(res){
                     var data = JSON.parse(res);
