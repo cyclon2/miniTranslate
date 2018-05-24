@@ -18,4 +18,5 @@ _mailinglist
 .idea/
 docs/_build/
 .vscode/
-
+*.swp
+*.swo
