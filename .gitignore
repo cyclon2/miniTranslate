@@ -7,7 +7,6 @@ venv/
 venv*
 kaima/
 kaima*
-dist/
 build/
 *.egg
 *.egg-info/
@@ -23,3 +22,4 @@ docs/_build/
 static/semantic/tasks/
 static/semantic/src/
 node_modules/
+package-lock.json
