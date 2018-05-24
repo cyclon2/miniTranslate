@@ -1,2 +1,4 @@
 textblob
 flask
+flask_login
+bs4

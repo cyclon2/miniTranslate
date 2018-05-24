@@ -3,7 +3,7 @@
         {% include 'partials/head.html' %}
     </head>
     <script>
-        $(document).on("change keyup", "#id_memo", function(){
+        $(document).on("change keyup", "#id_ko_memo", function(){
             $.ajax({
                 url: "/api/translate",
                 data: {
