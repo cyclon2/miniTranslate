@@ -1,0 +1,54 @@
+:root {
+    --blue-color: rgb(74, 179, 193);  
+    --red-color: rgb(226, 87, 70);
+    --orange-color: rgb(239, 168, 86); 
+    --gray-color: rgb(124, 141, 142); 
+    --beige-color: rgb(242, 237, 217); 
+    --brown-color: rgb(93, 76, 70); 
+}
+.container {
+    margin: 30px;
+    display: flex;
+}
+body {
+    margin: 30px;
+}
+#id_ko_memo {
+    margin-right: 10px;
+    width: 500px;
+    min-height: 300px;
+    border: 2px solid var(--blue-color);
+    border-radius: 5px;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 16px;
+}
+#id_result {
+    width: 500px;
+    min-height: 300px;
+    border: 2px solid var(--gray-color);
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 16px;
+}
+.row-container {
+    flex-direction: row;
+    align-items: stretch;
+}
+#id_my_word_list {
+    padding: 10px;
+}
+.word-list-container {
+    border: 2px solid var(--beige-color);
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+}
+.content-container {
+    margin: 10px 5px;
+    display: flex;
+}
+.column-container{
+    flex-direction: column;
+    align-items: center;
+}

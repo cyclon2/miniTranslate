@@ -20,3 +20,6 @@ docs/_build/
 .vscode/
 *.swp
 *.swo
+static/semantic/tasks/
+static/semantic/src/
+node_modules/

@@ -6,7 +6,7 @@ import asyncio
 DAUM_URL = "http://dic.daum.net"
 
 def craete_soup_with_url(url):
-    handler = request.urlopen(url)
+    handler = request.urlopen(url, )
     source = handler.read().decode('utf-8')
     return BeautifulSoup(source, 'html.parser')
 
@@ -22,6 +22,9 @@ def get_wordid(url):
     return re.findall('ekw[\d]+', url)[0]
 
 def get_meaning(query):
+    if not is_ascii(query):
+        return "", ""
+
     soup = create_soup_with_query(query)
     refresh_meta = soup.find('meta', attrs={'http-equiv': 'Refresh'})
     if refresh_meta is not None:
@@ -36,6 +39,9 @@ def get_meaning(query):
         soup = create_soup_with_wordid(wordid)
         meaning = soup.find('ul', class_='list_mean').get_text()
         return query, meaning
+
+def is_ascii(s):
+    return all(ord(c) < 128 for c in s)
 
 async def get_meaning_all(word_list):
     loop = asyncio.get_event_loop()

@@ -2,11 +2,46 @@
     <head>
         {% include 'partials/head.html' %}
     </head>
+    <style>
+        .ui.input .sign-btn {
+            margin: 0;
+            max-width: 100%;
+            -webkit-box-flex: 1;
+            -ms-flex: 1 0 auto;
+            flex: 1 0 auto;
+            outline: 0;
+            -webkit-tap-highlight-color: rgba(255,255,255,0);
+            text-align: center;
+            line-height: 1.21428571em;
+            font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+            padding: .67857143em 1em;
+            background: #fff;
+            border: 1px solid rgba(34,36,38,.15);
+            color: rgba(0,0,0,.87);
+            border-radius: .28571429rem;
+            cursor: pointer;
+        }
+    </style>
     <body>
-        <form method="POST">
-            <input name="user_id" />
-            <input name="passwd_hash" type="password"/>
-            <input type="submit"/>
-        </form>
+        <div class="login-form">
+            <h2>Toy project</h2>
+            <form method="POST">
+                <div class="ui input">
+                    <input name="user_id" placeholder="ID"/>
+                </div>
+                <br>
+                <div class="ui input">
+                    <input name="password" placeholder="PASSWORD" type="password"/>
+                </div> 
+                <br>
+                <div class="ui input">
+                    <input type="submit" value="LOGIN"/>
+                </div>
+                <br>
+                <div class="ui input">
+                    <div class="sign-btn" onclick="javascript:location.href ='/signup';" >SIGNUP</div>
+                </div>
+            </form>
+        </div>
     </body>
 </html>

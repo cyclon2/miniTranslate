@@ -1,22 +1,22 @@
 class User:
-    def __init__(self, user_id, email=None, passwd_hash=None,
+    def __init__(self, user_id, email=None, password=None,
                  authenticated=False):
         self.user_id = user_id
         self.email = email
-        self.passwd_hash = passwd_hash
+        self.password = password
         self.authenticated = authenticated
 
     def __repr__(self):
         r = {
             'user_id': self.user_id,
             'email': self.email,
-            'passwd_hash': self.passwd_hash,
+            'password': self.password,
             'authenticated': self.authenticated,
         }
         return str(r)
 
-    def can_login(self, passwd_hash):
-        return self.passwd_hash == passwd_hash
+    def can_login(self, password):
+        return self.password == password
 
     def is_active(self):
         return True
