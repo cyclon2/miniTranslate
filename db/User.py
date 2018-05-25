@@ -32,8 +32,8 @@ class User:
         return False
     
     def login(self):
-        conn = pymysql.connect(host='localhost', 
-            user='root', password='8804',
+        conn = pymysql.connect(host=DB_HOST, 
+            user=DB_USER, password=DB_PASSWORD,
             db='toy', charset='utf8'
         )
         cursor = conn.cursor()
@@ -44,8 +44,8 @@ class User:
         return is_found == 1
     
     def signup(self):
-        conn = pymysql.connect(host='localhost', 
-            user='root', password='8804',
+        conn = pymysql.connect(host=DB_HOST, 
+            user=DB_USER, password=DB_PASSWORD,
             db='toy', charset='utf8'
         )
         cursor = conn.cursor()
@@ -63,7 +63,6 @@ def find_userid(user_id):
     sql = "SELECT * FROM `user` WHERE `userid` = %s";
     cursor.execute(sql, (user_id))
     user =  cursor.fetchall()
-    print(user)
     if len(user) == 0:
         conn.close()
         return User('no-one')
