@@ -66,6 +66,7 @@ def find_userid(user_id):
     if len(user) == 0:
         conn.close()
         return User('no-one')
+    user = user[0]
     conn.close()
     return User(user_id=user[1], email=user[3])
 
