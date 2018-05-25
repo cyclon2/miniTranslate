@@ -62,7 +62,11 @@ def find_userid(user_id):
     cursor = conn.cursor()
     sql = "SELECT * FROM `user` WHERE `userid` = %s";
     cursor.execute(sql, (user_id))
-    user =  cursor.fetchall()[0]
+    user =  cursor.fetchall()
+    print(user)
+    if len(user) == 0:
+        conn.close()
+        return User('no-one')
     conn.close()
     return User(user_id=user[1], email=user[3])
 
