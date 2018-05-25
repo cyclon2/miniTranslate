@@ -1,4 +1,6 @@
 import pymysql
+from db.setting import *
+
 
 class User:
     def __init__(self, user_id, email=None, password=None,
@@ -53,8 +55,8 @@ class User:
         conn.close()
     
 def find_userid(user_id):
-    conn = pymysql.connect(host='localhost', 
-        user='root', password='8804',
+    conn = pymysql.connect(host=DB_HOST, 
+        user=DB_USER, password=DB_PASSWORD,
         db='toy', charset='utf8'
     )
     cursor = conn.cursor()

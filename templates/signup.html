@@ -2,12 +2,33 @@
     <head>
         {% include 'partials/head.html' %}
     </head>
+    <style>
+
+    </style>
     <body>
-        <form method="POST">
-            <input name="user_id" />
-            <input name="password" type="password"/>
-            <input name="password2" type="password"/>
-            <input type="submit"/>
-        </form>
+        <div class="login-form">
+            <h2>Join us</h2>
+            <form method="POST">
+                <div class="ui input">
+                    <input name="user_id" placeholder="ID"/>
+                </div>
+                <br>
+                <div class="ui input">
+                    <input name="password" placeholder="PASSWORD" type="password"/>
+                </div> 
+                <br>
+                <div class="ui input">
+                    <input name="password2" placeholder="CONFIRM PASSWORD" type="password"/>
+                </div> 
+                <br>
+                <div class="ui input">
+                    <input type="submit" value="SIGNUP"/>
+                </div>
+                <br>
+                <div class="ui input">
+                    <div class="sign-btn" onclick="javascript:location.href ='/login';" >BACK</div>
+                </div>
+            </form>
+        </div>
     </body>
 </html>

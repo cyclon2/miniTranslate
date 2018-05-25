@@ -23,3 +23,4 @@ static/semantic/tasks/
 static/semantic/src/
 node_modules/
 package-lock.json
+setting.py
