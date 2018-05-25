@@ -22,7 +22,9 @@ $(document).on("click", "#id_definitions_ko_btn", function(){
             $("#id_definitions_ko").empty();
             var item ="";
             for (w in words){
-                item += "<p>" + words[w]+"</p>"
+                if(words[w] != null){
+                    item += "<p>" + words[w]+"</p>"
+                }
             }
             $("#id_definitions_ko").append(item)
         }

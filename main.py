@@ -2,17 +2,11 @@ from textblob import TextBlob, Word
 from flask import Flask, render_template, request, session, jsonify, redirect
 import json
 from flask_login import LoginManager, login_required, login_user, current_user, logout_user
-from db.User import User
+from db.User import User, find_userid
 from bs4 import BeautifulSoup
 from utils.dic_daum import get_meaning_all
 import asyncio
 from utils.word import except_words
-
-USERS = {
-    "asdf": User("asdf", password='asdf'),
-    "user02": User("user02", password='user_02'),
-    "user03": User("user03", password='user_03'),
-}
 
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = "ut4u--nj0ai_0$o4q)6h4rrvgw6_qo246juzrzj%yz4rv8cvs^"
@@ -33,15 +27,12 @@ def notauth_func():
 
 @app.route('/login', methods=['POST'])
 def login():
-    user_id = request.form['user_id']
-    password = request.form['password']
-    if user_id not in USERS:
-        return render_template("login.html", message = "Invalid user_id or password")
-    elif not USERS[user_id].can_login(password):
-        return render_template("login.html", message = "Invalid user_id or password")
+    user = User(user_id = request.form['user_id'], password=request.form['password'])
+    if user.login():
+        user.authenticated = True
+        login_user(user, remember=True)
     else:
-        USERS[user_id].authenticated = True
-        login_user(USERS[user_id], remember=True)
+        return render_template("login.html", message = "Invalid user_id or password")
     return redirect("/")
 
 @app.route('/login', methods=['GET'])
@@ -66,7 +57,8 @@ def logout():
 
 @login_manager.user_loader
 def user_loader(user_id):
-    return USERS[user_id]
+    user =  find_userid(user_id)
+    return user
 
 @app.route('/', methods=["GET"])
 @login_required
@@ -88,10 +80,16 @@ def translate():
     return json.dumps({ "result" : translate_sentence }, ensure_ascii=False), 200
 
 def lemmatize(x):
+    print(x)
     return Word(x).lemmatize("v")
 
-def definition(x): 
+def definition(x):
     return  Word(x).definitions
+
+def except_check(w):
+    if w.lower() not in except_words:
+        return True
+    return False
 
 @app.route('/api/definition/ko')
 @login_required
@@ -100,9 +98,7 @@ def get_definition_ko():
     if len(sentence) == 0:
         return json.dumps({ "result" : "" }, ensure_ascii=False), 200
     words = TextBlob(sentence).words
-    words = [x for x in TextBlob(sentence).words if x.lower() not in except_words]
-    # words = [x for x in TextBlob(sentence).words]
-    lemmatized_words = list(set(map(lemmatize, words)))
+    lemmatized_words = list(set(filter(lambda x : except_check(x), TextBlob(sentence).words)))
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
     definition_words = loop.run_until_complete(get_meaning_all(lemmatized_words))
@@ -121,4 +117,4 @@ def get_definition_en():
     return json.dumps({ "result" : [ {"lemmatized":lemmatized_words},{"definitions":definition_words}] }, ensure_ascii=False), 200
 
 if __name__ == '__main__':
-    app.run("0.0.0.0")
+    app.run("0.0.0.0", port=8000, debug=True)

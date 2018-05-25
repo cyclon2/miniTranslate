@@ -39,7 +39,7 @@ def get_meaning(query):
         soup = create_soup_with_wordid(wordid)
         meaning = soup.find('ul', class_='list_mean').get_text()
         return query, meaning
-
+        
 def is_ascii(s):
     return all(ord(c) < 128 for c in s)
 

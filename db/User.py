@@ -1,3 +1,5 @@
+import pymysql
+
 class User:
     def __init__(self, user_id, email=None, password=None,
                  authenticated=False):
@@ -15,9 +17,6 @@ class User:
         }
         return str(r)
 
-    def can_login(self, password):
-        return self.password == password
-
     def is_active(self):
         return True
 
@@ -29,3 +28,42 @@ class User:
 
     def is_anonymous(self):
         return False
+    
+    def login(self):
+        conn = pymysql.connect(host='localhost', 
+            user='root', password='8804',
+            db='toy', charset='utf8'
+        )
+        cursor = conn.cursor()
+        sql = "SELECT EXISTS( SELECT * FROM `user` WHERE `userid` = %s and `password` = %s)";
+        cursor.execute(sql, (self.user_id, self.password))
+        is_found = cursor.fetchall()[0][0]
+        conn.close()
+        return is_found == 1
+    
+    def signup(self):
+        conn = pymysql.connect(host='localhost', 
+            user='root', password='8804',
+            db='toy', charset='utf8'
+        )
+        cursor = conn.cursor()
+        sql = "INSERT INTO `user` (`userid`, `password`, `email`) VALUES(%s, %s, %s);"
+        cursor.execute(sql, (self.user_id, self.password, self.email))
+        conn.commit()
+        conn.close()
+    
+def find_userid(user_id):
+    conn = pymysql.connect(host='localhost', 
+        user='root', password='8804',
+        db='toy', charset='utf8'
+    )
+    cursor = conn.cursor()
+    sql = "SELECT * FROM `user` WHERE `userid` = %s";
+    cursor.execute(sql, (user_id))
+    user =  cursor.fetchall()[0]
+    conn.close()
+    return User(user_id=user[1], email=user[3])
+
+if __name__ == '__main__':
+    init_table()
+    
