@@ -4,12 +4,19 @@ $(document).ready(function(){
 
 $(document).on("change keyup", "#id_ko_memo", function(){
     var text_data = $("#id_ko_memo").val();
+    $("#id_ko_memo").val(text_data.substring(0,5000));
+    text_data = $("#id_ko_memo").val();
+    var data = {
+        "q" : text_data,
+    };
     $("#id_word_count").text(text_data.length);
+    if($("#id_checkbox_kr_to_en").is(":checked")){
+        data['from'] = "ko";
+        data['to'] = "en";
+    }
     $.ajax({
         url: "/api/translate",
-        data: {
-            "q" : text_data
-        },
+        data: data,
         success: function(res){
             var data = JSON.parse(res);
             $("#id_result").text(data.result)
