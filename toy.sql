@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `Word` (
     `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
-    UNIQUE INDEX (`word`),
+    UNIQUE INDEX (`word`)
 );
 
 CREATE INDEX `word_id_index` ON `Word`(`id`);
