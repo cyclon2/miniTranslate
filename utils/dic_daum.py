@@ -52,7 +52,6 @@ def create_soup_for_subid(soup, wordid):
 def get_meaning_rough(soup, wordid):
     soup = create_soup_with_wordid(wordid)
     meaning = soup.find('ul', class_='list_mean').get_text()
-    print(meaning)
     return meaning
 
 def get_meaning_detail(soup, wordid):

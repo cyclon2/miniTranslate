@@ -1,8 +1,10 @@
 $(document).on("change keyup", "#id_ko_memo", function(){
+    var text_data = $("#id_ko_memo").val();
+    $("#id_word_count").text(text_data.length);
     $.ajax({
         url: "/api/translate",
         data: {
-            "q" : $("#id_ko_memo").val()
+            "q" : text_data
         },
         success: function(res){
             var data = JSON.parse(res);
@@ -16,13 +18,15 @@ $(document).on("click", "#id_definitions_ko_btn", function(){
         data: {
             "q" : $("#id_ko_memo").val()
         },
+        beforeSend: function(){
+            $("#id_definitions_ko_loader").show();
+        },
         success: function(res){
             var data = JSON.parse(res);
             var words = data.result.definitions;
             $("#id_definitions_ko").empty();
             var item ="";
             for (w in words){
-                console.log(words[w])
                 if(words[w] != null && words[w][0] != ""){
                     var word = words[w][0];
                     var meaning = words[w][1];
@@ -32,7 +36,8 @@ $(document).on("click", "#id_definitions_ko_btn", function(){
                     item += "</p>"
                 }
             }
-            $("#id_definitions_ko").append(item)
+            $("#id_definitions_ko").append(item);
+            $("#id_definitions_ko_loader").hide();
         }
     })
 });

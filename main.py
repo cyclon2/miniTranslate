@@ -6,7 +6,7 @@ from db.User import User, find_userid
 from bs4 import BeautifulSoup
 from utils.dic_daum import search_rough_all, search_detail_all
 import asyncio
-from utils.word import except_words
+from utils.word import except_words, except_check
 
 app = Flask(__name__,static_url_path='/static')
 app.config['SECRET_KEY'] = "ut4u--nj0ai_0$o4q)6h4rrvgw6_qo246juzrzj%yz4rv8cvs^"
@@ -63,7 +63,7 @@ def user_loader(user_id):
 @app.route('/', methods=["GET"])
 @login_required
 def main():
-    return render_template("main.html")
+    return render_template("main.html", data={'ignore_words' : except_words })
 
 @app.route('/api/translate')
 @login_required
@@ -85,11 +85,6 @@ def lemmatize(x):
 
 def definition(x):
     return  Word(x).definitions
-
-def except_check(w):
-    if w.lower() not in except_words:
-        return True
-    return False
 
 @app.route('/api/definition/ko')
 @login_required

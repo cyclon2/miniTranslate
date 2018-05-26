@@ -2,9 +2,6 @@
     <head>
         {% include 'partials/head.html' %}
     </head>
-    <style>
-
-    </style>
     <body>
         <button id="id_logout" onclick="javascript:location.href='/logout'">logout</button>
         <div class="container row-container">
@@ -12,8 +9,19 @@
                 <div class="content-container ui form">
                     <div class="field">
                         <textarea id="id_ko_memo" placeholder="한글사전용"></textarea>
+                        <div><span id="id_word_count">1</span>/5000</div>
                     </div>
                     <div class="field"><p id="id_result"></p></div>
+                </div>
+                <div class="ignore-words-container">
+                    <div class="ko-btn-container">
+                        <button id="id_definitions_ko_btn">한글 사전</button>
+                        <div class="loader" id="id_definitions_ko_loader"></div>
+                    </div>
+                    <h4>Ignore words</h4>
+                    {% for item in data.ignore_words %}
+                        <span>{{ item }} |</span>
+                    {% endfor %}
                 </div>
                 <div class="content-container">
                     <div class="container column-container">
@@ -25,9 +33,14 @@
                             <input id="id_ko_memo_detail" placeholder="한글사전용"/>
                             <button for="id_ko_memo_detail" id="id_definitions_en_btn">자세한 한글 사전</button>
                         </div> -->
-                        <button id="id_definitions_ko_btn">한글 사전</button>
-                        <p id="id_definitions_ko"></p>
-                        <p id="id_definitions_en"></p>
+                        <div class="definitions-container">
+                            <h4>뜻</h4>
+                            <p id="id_definitions_ko"></p>
+                        </div>
+                        <div class="definitions-container">
+                            <h4>영영사전</h4>
+                            <p id="id_definitions_en"></p>
+                        </div>
                         <!-- <p id="id_definitions_ko_detail"></p> -->
                     </div>
                 </div>
