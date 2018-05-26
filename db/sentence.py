@@ -23,8 +23,7 @@ class Sentence(Resource):
             db='toy', charset='utf8'
         )
         cursor = conn.cursor()
-        query = INSERT_SENTENCE_QUERY % (current_user.user_id, raw_sentence, translated_sentence)
-        cursor.execute(query)
+        cursor.execute(INSERT_SENTENCE_QUERY ,(current_user.user_id, raw_sentence, translated_sentence))
         conn.commit()
         conn.close()
         return {'rusult': 'success'}
