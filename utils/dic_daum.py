@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 from urllib import request
 import re
 import asyncio
+import itertools
 
 DAUM_URL = "http://dic.daum.net"
 SUBURL = "http://alldic.daum.net/word/view_supword.do?"
@@ -52,19 +53,18 @@ def create_soup_for_subid(soup, wordid):
 def get_meaning_rough(soup, wordid):
     soup = create_soup_with_wordid(wordid)
     meaning = soup.find('ul', class_='list_mean').get_text()
-    return meaning
+    return (wordid, meaning)
 
 def get_meaning_detail(soup, wordid):
     soup = create_soup_with_wordid(wordid)
     soup = create_soup_for_subid(soup, wordid)
     meanings = soup.find_all('div', class_='fold_ex')
     meaning = []
-    import itertools
     for m in meanings:
         text = re.sub(r'([\t|\n])+', '', m.get_text().replace('  ', ''))
         meaning.append(text)
     meaning = "\n".join(meaning)
-    return meaning
+    return (wordid, meaning)
 
 def get_meaning(soup, wordid, is_rough):
     if is_rough:
@@ -89,4 +89,3 @@ def search(query, is_rough=True):
 
 if __name__ == "__main__":
     print(search("hello", False))
-    # search("as", False)

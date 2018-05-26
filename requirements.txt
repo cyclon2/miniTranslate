@@ -1,4 +1,7 @@
-textblob
 flask
 flask_login
 bs4
+flask_restful
+asyncio
+textblob
+pymysql
