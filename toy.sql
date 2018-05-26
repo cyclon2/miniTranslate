@@ -18,10 +18,11 @@ CREATE TABLE IF NOT EXISTS `User` (
     UNIQUE INDEX (`userid`)
 );
 
+CREATE INDEX `user_id_index` ON `User`(`id`);
+CREATE INDEX `user_userid_index` ON `User`(`userid`);
+
 INSERT INTO `User` (`userid`, `password`) VALUES('admin', 'admin');
 INSERT INTO `User` (`userid`, `password`) VALUES('asdf', 'asdf');
-
-CREATE INDEX `user_id_index` ON `User`(`id`);
 
 CREATE TABLE IF NOT EXISTS `Word` (
     `id` INT(5) unsigned AUTO_INCREMENT NOT NULL,
@@ -31,10 +32,13 @@ CREATE TABLE IF NOT EXISTS `Word` (
     `ignore` BOOLEAN DEFAULT 0,
     `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
     UNIQUE INDEX (`word`),
-    PRIMARY KEY (`id`)
 );
+
 CREATE INDEX `word_id_index` ON `Word`(`id`);
+CREATE INDEX `word_word_index` ON `Word`(`id`);
+
 INSERT INTO `Word` (`dictid`, `word`) VALUES('ekw000098168', 'live');
 INSERT INTO `Word` (`dictid`, `word`) VALUES('ekw000078268', 'hello');
 INSERT INTO `Word` (`dictid`, `word`) VALUES('ekw000188687', 'yellow');

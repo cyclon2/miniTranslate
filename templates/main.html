@@ -2,6 +2,11 @@
     <head>
         {% include 'partials/head.html' %}
     </head>
+    <style>
+        #id_sentence_store_btn{
+            margin-bottom: 10px;
+        }
+    </style>
     <body>
         {% include 'partials/header.html' %}
         <div class="container row-container">
@@ -14,6 +19,7 @@
                     <div class="field"><p id="id_result"></p></div>
                 </div>
                 <div class="ignore-words-container">
+                    <button id="id_sentence_store_btn">문장저장</button>
                     <div class="ko-btn-container">
                         <button id="id_definitions_ko_btn">한글 사전</button>
                         <div class="loader" id="id_definitions_ko_loader"></div>

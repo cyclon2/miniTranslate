@@ -1,14 +1,18 @@
+import json
 from textblob import TextBlob, Word
 from flask import Flask, render_template, request, session, jsonify, redirect
-import json
+from flask_restful import Api
 from flask_login import LoginManager, login_required, login_user, current_user, logout_user
-from db.User import User, find_userid
-from bs4 import BeautifulSoup
-from utils.dic_daum import search_rough_all, search_detail_all
 import asyncio
+from bs4 import BeautifulSoup
+from db.User import User, find_userid
+from db.word import Word
+from db.sentence import Sentence
+from utils.dic_daum import search_rough_all, search_detail_all
 from utils.word import except_words, except_check
 
 app = Flask(__name__,static_url_path='/static')
+api = Api(app)
 app.config['SECRET_KEY'] = "ut4u--nj0ai_0$o4q)6h4rrvgw6_qo246juzrzj%yz4rv8cvs^"
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -117,6 +121,9 @@ def get_definition_en():
     lemmatized_words = list(set(map(lemmatize, words)))
     definition_words = list(map(definition, lemmatized_words))
     return json.dumps({ "result" : [ {"lemmatized":lemmatized_words},{"definitions":definition_words}] }, ensure_ascii=False), 200
+
+api.add_resource(Sentence, '/api/sentence', '/api/sentence/<int:sentenceid>')
+api.add_resource(Word, '/api/word', '/api/word/<int:wordid>')
 
 if __name__ == '__main__':
     app.run("0.0.0.0", port=8000, debug=True)
