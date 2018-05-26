@@ -9,7 +9,7 @@ except_words =  [
     "it", "its", "is","if", "in", "i",
     "like", "less",
     "not", "now", 
-    "must",
+    "must","'m"
     "should", "shall", "she", 
     "just", 
     "korean", "korea", 

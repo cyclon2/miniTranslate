@@ -71,7 +71,8 @@ class Word2(Resource):
                 user=DB_USER, password=DB_PASSWORD,
                 db='toy', charset='utf8'
             )
-            if w == None or w[0]=='':
+            if w == None or w[0]=='' or "'" in w[0]:
+                conn.close()
                 continue
             word = w[0]
             dictid = w[1][0]

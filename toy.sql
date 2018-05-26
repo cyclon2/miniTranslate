@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS `UserWord` (
     `id` INT(5) unsigned AUTO_INCREMENT NOT NULL,
     `wordid` INT(5) unsigned NOT NULL,
     `userid` INT(5) unsigned NOT NULL,
-    `count` INT(10) unsigned DEFAULT 0 NOT NULL,
+    `count` INT(10) unsigned DEFAULT 1 NOT NULL,
     `like` BOOLEAN DEFAULT 0,
     `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
