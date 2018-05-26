@@ -11,9 +11,11 @@
         {% include 'partials/header.html' %}
         <div class="container row-container">
             <div class="column-container">
+                <label for="id_checkbox_kr_to_en">한->영</label>
+                <input id="id_checkbox_kr_to_en" name="input_checkbox" type="checkbox"/>
                 <div class="content-container ui form">
                     <div class="field">
-                        <textarea id="id_ko_memo" placeholder="한글사전용"></textarea>
+                        <textarea id="id_ko_memo"></textarea>
                         <div><span id="id_word_count">1</span>/5000</div>
                     </div>
                     <div class="field"><p id="id_result"></p></div>
