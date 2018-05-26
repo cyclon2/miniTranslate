@@ -38,6 +38,8 @@ CREATE TABLE IF NOT EXISTS `Word` (
 
 CREATE INDEX `word_id_index` ON `Word`(`id`);
 CREATE INDEX `word_word_index` ON `Word`(`id`);
+INSERT INTO `User` (`userid`, `password`) VALUES('admin', 'admin');
+
 
 CREATE TABLE IF NOT EXISTS `UserWord` (
     `id` INT(5) unsigned AUTO_INCREMENT NOT NULL,
