@@ -39,10 +39,6 @@ CREATE TABLE IF NOT EXISTS `Word` (
 CREATE INDEX `word_id_index` ON `Word`(`id`);
 CREATE INDEX `word_word_index` ON `Word`(`id`);
 
-INSERT INTO `Word` (`dictid`, `word`) VALUES('ekw000098168', 'live');
-INSERT INTO `Word` (`dictid`, `word`) VALUES('ekw000078268', 'hello');
-INSERT INTO `Word` (`dictid`, `word`) VALUES('ekw000188687', 'yellow');
-
 CREATE TABLE IF NOT EXISTS `UserWord` (
     `id` INT(5) unsigned AUTO_INCREMENT NOT NULL,
     `wordid` INT(5) unsigned NOT NULL,
@@ -57,10 +53,6 @@ CREATE TABLE IF NOT EXISTS `UserWord` (
     UNIQUE INDEX (`wordid`)
 );
 
-INSERT INTO `UserWord` (`userid`,`wordid`) VALUES( (SELECT id FROM `User` WHERE userid='admin'), (SELECT id FROM `Word` WHERE word='live'));
-INSERT INTO `UserWord` (`userid`,`wordid`) VALUES( (SELECT id FROM `User` WHERE userid='admin'), (SELECT id FROM `Word` WHERE word='yellow'));
-
-
 CREATE TABLE IF NOT EXISTS `Sentence` (
     `id` INT(5) unsigned AUTO_INCREMENT NOT NULL,
     `userid` INT(5) unsigned NOT NULL,
@@ -72,6 +64,3 @@ CREATE TABLE IF NOT EXISTS `Sentence` (
     PRIMARY KEY (`id`),
     FOREIGN KEY (userid) REFERENCES `User`(`id`)
 );
-
-INSERT INTO `Sentence` (`userid`, `raw`, `translated`) VALUES ((SELECT id FROM `User` WHERE userid='admin'), "hello", "안녕");
-INSERT INTO `Sentence` (`userid`, `raw`, `translated`) VALUES ((SELECT id FROM `User` WHERE userid='admin'), "hell", "지옥");
