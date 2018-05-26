@@ -1,3 +1,4 @@
+from textblob import TextBlob, Word
 except_words =  [
     "a", "and", "at", "an", "as", "are", "american", "america", "about", "although",
     "be", "by", "been", "because", "but",
@@ -24,3 +25,9 @@ def except_check(w):
     if w.lower() not in except_words:
         return True
     return False
+
+def lemmatize(x):
+    return Word(x).lemmatize("v")
+
+def definition(x):
+    return  Word(x).definitions

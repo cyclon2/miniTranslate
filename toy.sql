@@ -53,7 +53,8 @@ CREATE TABLE IF NOT EXISTS `UserWord` (
     `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
     FOREIGN KEY (wordid) REFERENCES `Word`(`id`),
-    FOREIGN KEY (userid) REFERENCES `User`(`id`)
+    FOREIGN KEY (userid) REFERENCES `User`(`id`),
+    UNIQUE INDEX (`wordid`)
 );
 
 INSERT INTO `UserWord` (`userid`,`wordid`) VALUES( (SELECT id FROM `User` WHERE userid='admin'), (SELECT id FROM `Word` WHERE word='live'));

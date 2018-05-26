@@ -61,7 +61,7 @@ class User:
         )
         cursor = conn.cursor()
         info = dict({})
-        cursor.execute(WORD_QUERY % (self.user_id))
+        cursor.execute(USERWORD_LIKE_QUERY % (self.user_id))
         info['words'] = list(cursor.fetchall())
         cursor.execute(SENTENCE_QUERY % (self.user_id))
         info['sentences'] = list(cursor.fetchall())

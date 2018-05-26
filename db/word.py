@@ -8,15 +8,25 @@ from db.query import *
 import sys
 sys.path.append('~/translate')
 from utils.dic_daum import search_rough_all, search_detail_all
+from utils.word import *
 
 parser = reqparse.RequestParser()
 parser.add_argument('word', type=str)
 parser.add_argument('dictid', type=str)
+parser.add_argument('sentence', type=str)
 
 class Word(Resource):
     decorators = [login_required]
     def get(self):
-        return {'hello': 'world'}
+        conn = pymysql.connect(host=DB_HOST, 
+            user=DB_USER, password=DB_PASSWORD,
+            db='toy', charset='utf8'
+        )
+        cursor = conn.cursor()
+        cursor.execute(USERWORD_QUERY % (current_user.user_id))
+        data =list(cursor.fetchall())
+        conn.close()
+        return {'data' :data}
 
     decorators = [login_required]
     def post(self):
@@ -28,16 +38,7 @@ class Word(Resource):
             db='toy', charset='utf8'
         )
         cursor = conn.cursor()
-        try:
-            cursor.execute(INSERT_WORD_QUERY % (word, dictid))
-            wordid = cursor.lastrowid
-            conn.commit()
-        except Exception as e:
-            cursor.execute(SELECT_WORD_QUERY % (word))
-            reselt = cursor.fetchone()
-            wordid = reselt[0]
-            print(wordid)
-        cursor.execute(INSERT_USERWORD_QUERY % (current_user.user_id, wordid))
+        cursor.execute(UPDATE_USERWORD_LIKE_QUERY % (word))
         conn.commit()
         conn.close()
         return {'rusult': 'success'}
@@ -49,9 +50,43 @@ class Word(Resource):
             db='toy', charset='utf8'
         )
         cursor = conn.cursor()
-        cursor.execute(DELETE_WORD_QUERY % (wordid))
+        cursor.execute(DELETE_USERWORD_QUERY % (wordid))
         conn.commit()
         conn.close()
+        return {'rusult': 'success'}
+
+class Word2(Resource):
+    decorators = [login_required]
+    def post(self):
+        args = parser.parse_args()
+        sentence = args['sentence']
+        words = TextBlob(sentence).words
+        word_list = list(set(filter(lambda x : except_check(x), TextBlob(sentence).words)))
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        words_meanings = loop.run_until_complete(search_rough_all(word_list))
+        loop.close()
+        for w in words_meanings:
+            conn = pymysql.connect(host=DB_HOST, 
+                user=DB_USER, password=DB_PASSWORD,
+                db='toy', charset='utf8'
+            )
+            if w == None or w[0]=='':
+                continue
+            word = w[0]
+            dictid = w[1][0]
+            meaning = w[1][1]
+            cursor = conn.cursor()
+            cursor.execute(SELECT_WORD_QUERY_ALL % (word))
+            result = cursor.fetchone()
+            if result == None:
+                cursor.execute(INSERT_WORD_QUERY_MEANING % (word, dictid, meaning))
+                conn.commit()
+                cursor.execute(INSERT_USERWORD_QUERY2 % (current_user.user_id, word))
+            else:
+                cursor.execute(UPDATE_WORD_COUNT_QUERY %(word, current_user.user_id))
+            conn.commit()
+            conn.close()
         return {'rusult': 'success'}
 
 def words_count(word_list):

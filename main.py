@@ -6,10 +6,10 @@ from flask_login import LoginManager, login_required, login_user, current_user, 
 import asyncio
 from bs4 import BeautifulSoup
 from db.User import User, find_userid
-from db.word import Word
+import db.word as wordObj
 from db.sentence import Sentence
 from utils.dic_daum import search_rough_all, search_detail_all
-from utils.word import except_words, except_check
+from utils.word import *
 
 app = Flask(__name__,static_url_path='/static')
 api = Api(app)
@@ -91,12 +91,6 @@ def translate():
         translate_sentence = sentence
     return json.dumps({ "result" : translate_sentence }, ensure_ascii=False), 200
 
-def lemmatize(x):
-    return Word(x).lemmatize("v")
-
-def definition(x):
-    return  Word(x).definitions
-
 @app.route('/api/definition/ko')
 @login_required
 def get_definition_ko():
@@ -122,8 +116,10 @@ def get_definition_en():
     definition_words = list(map(definition, lemmatized_words))
     return json.dumps({ "result" : [ {"lemmatized":lemmatized_words},{"definitions":definition_words}] }, ensure_ascii=False), 200
 
+
 api.add_resource(Sentence, '/api/sentence', '/api/sentence/<int:sentenceid>')
-api.add_resource(Word, '/api/word', '/api/word/<int:wordid>')
+api.add_resource(wordObj.Word, '/api/word')
+api.add_resource(wordObj.Word2, '/api/words')
 
 if __name__ == '__main__':
     app.run("0.0.0.0", port=8000, debug=True)
