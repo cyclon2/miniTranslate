@@ -1,5 +1,6 @@
 import pymysql
 from db.setting import *
+from db.query import *
 
 class User:
     def __init__(self, user_id, email=None, password=None,
@@ -53,6 +54,20 @@ class User:
         conn.commit()
         conn.close()
     
+    def get_works(self):
+        conn = pymysql.connect(host=DB_HOST, 
+            user=DB_USER, password=DB_PASSWORD,
+            db='toy', charset='utf8'
+        )
+        cursor = conn.cursor()
+        info = dict({})
+        cursor.execute(WORD_QUERY % (self.user_id))
+        info['words'] = list(cursor.fetchall())
+        cursor.execute(SENTENCE_QUERY % (self.user_id))
+        info['sentences'] = list(cursor.fetchall())
+        conn.close()
+        return  info   
+
 def find_userid(user_id):
     conn = pymysql.connect(host=DB_HOST, 
         user=DB_USER, password=DB_PASSWORD,
@@ -70,5 +85,5 @@ def find_userid(user_id):
     return User(user_id=user[1], email=user[3])
 
 if __name__ == '__main__':
-    init_table()
+    User('admin').get_info()
     

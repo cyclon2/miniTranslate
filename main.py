@@ -65,6 +65,14 @@ def user_loader(user_id):
 def main():
     return render_template("main.html", data={'ignore_words' : except_words })
 
+@app.route('/mypage', methods=["GET"])
+@login_required
+def mypage():
+    works = current_user.get_works()
+    words = works['words']
+    sentences = works['sentences']
+    return render_template("mypage.html", data={"sentences": sentences, "words": words})
+
 @app.route('/api/translate')
 @login_required
 def translate():
@@ -80,7 +88,6 @@ def translate():
     return json.dumps({ "result" : translate_sentence }, ensure_ascii=False), 200
 
 def lemmatize(x):
-    print(x)
     return Word(x).lemmatize("v")
 
 def definition(x):

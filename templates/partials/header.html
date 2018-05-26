@@ -1,0 +1,6 @@
+<button id="id_logout" onclick="javascript:location.href='/logout'">logout</button>
+{% if request.endpoint == 'mypage' %}
+<button id="id_mypage_btn" onclick="javascript:location.href='/'">main</button>
+{% elif request.endpoint == 'main' %}
+<button id="id_mypage_btn" onclick="javascript:location.href='/mypage'">mypage</button>
+{% endif %}
