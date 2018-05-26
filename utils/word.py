@@ -23,13 +23,3 @@ def except_check(w):
     if w.lower() not in except_words:
         return True
     return False
-
-import pymysql
-from db.setting import *
-
-def words_count(word_list):
-    conn = pymysql.connect(host=DB_HOST, 
-        user=DB_USER, password=DB_PASSWORD,
-        db='toy', charset='utf8'
-    )
-    
