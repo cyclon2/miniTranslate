@@ -16,7 +16,7 @@ except_words =  [
     "out", "one", "or", "on", "our", "of", "own", "once",
     "when", "where", "which", "with", "without","what", "within", "will", "we", "would", "why",
     "your", "you", 
-    "'s", "s",
+    "'s", "s", "so"
 ]
 
 import pymysql

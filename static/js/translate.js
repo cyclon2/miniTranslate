@@ -22,13 +22,14 @@ $(document).on("click", "#id_definitions_ko_btn", function(){
             $("#id_definitions_ko").empty();
             var item ="";
             for (w in words){
-                if(words[w][0] != ""){
+                console.log(words[w])
+                if(words[w] != null && words[w][0] != ""){
                     var word = words[w][0];
                     var meaning = words[w][1];
-                    item += "<div>";
+                    item += "<p>";
                     item += "<span class='word-title'>"+ word +"</span>";
                     item += "<span class='word-meaning'>"+ meaning +"</span>";
-                    item += "</div>"
+                    item += "</p>"
                 }
             }
             $("#id_definitions_ko").append(item)

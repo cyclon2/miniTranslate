@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `Word` (
     `id` INT(5) unsigned AUTO_INCREMENT NOT NULL,
     `dictid` VARCHAR(32) NOT NULL,  -- daum dictionary id 
     `word` VARCHAR(32) NOT NULL,
+    `ignore` BOOLEAN DEFAULT 0,
     `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     UNIQUE INDEX (`word`),

@@ -40,7 +40,7 @@ async def search_rough_all(word_list):
 async def search_detail_all(word_list):
     loop = asyncio.get_event_loop()
     futures = [
-        loop.run_in_executor(None, search, i)for i in word_list
+        loop.run_in_executor(None, search, i, False)for i in word_list
     ]
     return await asyncio.gather(*futures)
 
@@ -52,6 +52,7 @@ def create_soup_for_subid(soup, wordid):
 def get_meaning_rough(soup, wordid):
     soup = create_soup_with_wordid(wordid)
     meaning = soup.find('ul', class_='list_mean').get_text()
+    print(meaning)
     return meaning
 
 def get_meaning_detail(soup, wordid):
