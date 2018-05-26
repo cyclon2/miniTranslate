@@ -81,7 +81,7 @@ def mypage():
 @login_required
 def translate():
     to = request.args.get('to', default="ko")
-    from_lang = request.args.get('to', default="en")
+    from_lang = request.args.get('from', default="en")
     sentence = request.args.get('q', '')
     if len(sentence) == 0:
         return json.dumps({ "result" : "" }, ensure_ascii=False), 200
