@@ -4,7 +4,7 @@ import json
 from flask_login import LoginManager, login_required, login_user, current_user, logout_user
 from db.User import User, find_userid
 from bs4 import BeautifulSoup
-from utils.dic_daum import get_meaning_all
+from utils.dic_daum import search
 import asyncio
 from utils.word import except_words
 
@@ -101,7 +101,7 @@ def get_definition_ko():
     lemmatized_words = list(set(filter(lambda x : except_check(x), TextBlob(sentence).words)))
     loop = asyncio.new_event_loop()
     asyncio.set_event_loop(loop)
-    definition_words = loop.run_until_complete(search_rough_all(lemmatized_words))
+    definition_words = loop.run_until_complete(search(lemmatized_words))
     loop.close()
     return json.dumps({ "result" : {"definitions":definition_words} }, ensure_ascii=False), 200
 
