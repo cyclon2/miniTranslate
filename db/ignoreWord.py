@@ -1,41 +1,38 @@
 from flask_restful import Resource, reqparse
 from flask_login import login_required, current_user
+import asyncio
+import pymysql
 from db.setting import *
 from db.Query import *
-import pymysql
+import sys
+sys.path.append('~/translate')
+from utils.dic_daum import search_rough_all, search_detail_all
+from utils.word import *
 
 parser = reqparse.RequestParser()
-parser.add_argument('raw', type=str)
-parser.add_argument('translated', type=str)
+parser.add_argument('word', type=str)
+parser.add_argument('dictid', type=str)
 
-class Sentence(Resource):
+class IgnoredWord(Resource):
     decorators = [login_required]
-    def get(self, sentenceid):
-        return {'hello': current_user.user_id}
-
-    decorators = [login_required]
-    def post(self):
-        args = parser.parse_args()
-        raw_sentence = args['raw']
-        translated_sentence = args['translated']
+    def get(self):
         conn = pymysql.connect(host=DB_HOST, 
             user=DB_USER, password=DB_PASSWORD,
             db='toy', charset='utf8'
         )
         cursor = conn.cursor()
-        cursor.execute(INSERT_SENTENCE_QUERY ,(current_user.user_id, raw_sentence, translated_sentence))
-        conn.commit()
         conn.close()
-        return {'rusult': 'success'}
+        return {'data' :data}
 
     decorators = [login_required]
-    def delete(self, sentenceid):
+    def patch(self): # ignore toggle
+        args = parser.parse_args()
+        word = args['word']
         conn = pymysql.connect(host=DB_HOST, 
             user=DB_USER, password=DB_PASSWORD,
             db='toy', charset='utf8'
         )
         cursor = conn.cursor()
-        cursor.execute(DELETE_SENTENCE_QUERY % (sentenceid))
         conn.commit()
         conn.close()
         return {'rusult': 'success'}

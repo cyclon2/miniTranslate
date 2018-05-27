@@ -1,6 +1,6 @@
 import pymysql
 from db.setting import *
-from db.query import *
+from db.Query import *
 
 class User:
     def __init__(self, user_id, email=None, password=None,

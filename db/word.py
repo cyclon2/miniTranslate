@@ -1,10 +1,9 @@
-
 from flask_restful import Resource, reqparse
 from flask_login import login_required, current_user
 import asyncio
 import pymysql
 from db.setting import *
-from db.query import *
+from db.Query import *
 import sys
 sys.path.append('~/translate')
 from utils.dic_daum import search_rough_all, search_detail_all
@@ -29,7 +28,7 @@ class Word(Resource):
         return {'data' :data}
 
     decorators = [login_required]
-    def post(self):
+    def patch(self): # Like
         args = parser.parse_args()
         word = args['word']
         dictid = args['dictid']

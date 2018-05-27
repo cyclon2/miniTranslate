@@ -24,11 +24,15 @@ $(document).on("change keyup", "#id_ko_memo", function(){
     });
 });
 $(document).on("focusout", "#id_ko_memo", function(){ 
+    var data = $("#id_ko_memo").val();
+    if($("#id_checkbox_kr_to_en").is(":checked") || data.length == 0){
+        return false;
+    }
     $.ajax({
         url: "/api/words",
         type: "POST",
         data: {
-            "sentence" : $("#id_ko_memo").val()
+            "sentence" : data
         },
         success: function(res){
             console.log("[POST] SUCCESS to store");
@@ -51,9 +55,9 @@ function getWordRank(){
             for(var d in res.data){
                 var word = res.data[d];
                 item += "<p>";
-                item += "<div class='word-count'>"+ word[3] +"</div>";
-                item += "<div class='word'>"+ word[1] +"</div>";
-                item += "<div class='word-meaning'>"+ word[2] +"</div>";
+                item += "<div class='side-word-count'>"+ word[3] +"</div>";
+                item += "<div class='side-word'>"+ word[1] +"</div>";
+                item += "<div class='side-word-meaning'>"+ word[2] +"</div>";
                 item += "</p>"
             }
             $("#id_my_word_list").append(item);
@@ -187,7 +191,7 @@ $(document).on("click", ".word-store-btn", function(){
     var word = $(this).parent().find(".word-title").text();
     var dictid = $(this).data('id');
     $.ajax({
-        type:"POST",
+        type:"PATCH",
         url:'/api/word',
         data : {
             'word': word,
