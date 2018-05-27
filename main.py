@@ -71,7 +71,7 @@ def main():
 
 @app.route('/todo', methods=["GET"])
 @login_required
-def togo():
+def todo():
     return render_template("todo.html")
 
 
