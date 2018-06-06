@@ -8,3 +8,6 @@
 {% if request.endpoint != 'todo' %}
 <button id="id_mypage_btn" onclick="javascript:location.href='/todo'">todo</button>
 {% endif %}
+{% if request.endpoint != 'get_statistics' %}
+<button id="id_mypage_btn" onclick="javascript:location.href='/statistics'">통계</button>
+{% endif %}

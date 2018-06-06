@@ -36,3 +36,15 @@ class IgnoredWord(Resource):
         conn.commit()
         conn.close()
         return {'rusult': 'success'}
+
+class ignoredWord:
+    def get_words(self):
+        conn = pymysql.connect(host=DB_HOST, 
+            user=DB_USER, password=DB_PASSWORD,
+            db='toy', charset='utf8'
+        )
+        cursor = conn.cursor()
+         cursor.execute(USERWORD_IGNORE_QUERY % (self.user_id))
+        conn.close()
+        return  info   
+    

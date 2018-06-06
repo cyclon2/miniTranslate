@@ -9,7 +9,65 @@
     </style>
     <body>
         {% include 'partials/header.html' %}
-        <div class="container row-container">
+        <div class="row">
+            <div class="col s12 m10">
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div class="card-panel padding-0">
+                            <textarea id="id_ko_memo"></textarea>
+                        </div>
+                        <label for="id_checkbox_kr_to_en">한->영</label>
+                        <input id="id_checkbox_kr_to_en" name="input_checkbox" type="checkbox"/>
+                        <span id="id_word_count">0</span>/5000
+                        <button id="id_sentence_store_btn">문장저장</button> 
+                        <button id="id_definitions_ko_btn">문장 단어 찾기</button>
+                        <div class="loader" id="id_definitions_ko_loader"></div>
+                    </div>
+                    <div class="col s12 m6">
+                        <div class="card-panel padding-0">
+                            <div id="id_result"></div>
+                        </div>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col s12 m12">
+                        <div class="card-panel padding-5 cyan lighten-3">
+                            <div id="id_definitions_ko"></div>
+                        </div>
+                    </div>
+                    <div class="col s12 m12">
+                        <div class="card-panel padding-5">
+                                <input id="id_en_memo" placeholder="영영사전용"/>
+                                <button for="id_en_memo" id="id_definitions_en_btn">영영 사전</button>
+                            <div id="id_definitions_en"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col s12 m12">
+                        <div class="card-panel padding-10">
+                            <h4>Public ignore words</h4>
+                            {% for item in data.ignore_words %}
+                                <span>{{ item }} |</span>
+                            {% endfor %}
+                        </div>
+                        <div class="card-panel padding-10">
+                            <h4>Personal ignore words</h4>
+                            {% for item in data.personal_ignore_words %}
+                                <span>{{ item }} |</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col s12 m2">
+                <div class="card-panel padding-0 blue lighten-3">
+                    <div id="id_my_word_list"></div>
+                </div>
+            </div> 
+        </div>
+
+        <!-- <div class="container row-container">
             <div class="column-container">
                 <label for="id_checkbox_kr_to_en">한->영</label>
                 <input id="id_checkbox_kr_to_en" name="input_checkbox" type="checkbox"/>
@@ -21,13 +79,14 @@
                     <div class="field"><p id="id_result"></p></div>
                 </div>
                 <div class="ignore-words-container">
-                    <button id="id_sentence_store_btn">문장저장</button>
                     <div class="ko-btn-container">
-                        <button id="id_definitions_ko_btn">한글 사전</button>
-                        <div class="loader" id="id_definitions_ko_loader"></div>
                     </div>
-                    <h4>Ignore words</h4>
+                    <h4>Public ignore words</h4>
                     {% for item in data.ignore_words %}
+                        <span>{{ item }} |</span>
+                    {% endfor %}
+                    <h4>Personal ignore words</h4>
+                    {% for item in data.personal_ignore_words %}
                         <span>{{ item }} |</span>
                     {% endfor %}
                 </div>
@@ -37,10 +96,6 @@
                             <input id="id_en_memo" placeholder="영영사전용"/>
                             <button for="id_en_memo" id="id_definitions_en_btn">영영 사전</button>
                         </div>
-                        <!-- <div class="ui input">
-                            <input id="id_ko_memo_detail" placeholder="한글사전용"/>
-                            <button for="id_ko_memo_detail" id="id_definitions_en_btn">자세한 한글 사전</button>
-                        </div> -->
                         <div class="definitions-container">
                             <h4>뜻</h4>
                             <p id="id_definitions_ko"></p>
@@ -49,13 +104,12 @@
                             <h4>영영사전</h4>
                             <p id="id_definitions_en"></p>
                         </div>
-                        <!-- <p id="id_definitions_ko_detail"></p> -->
                     </div>
                 </div>
             </div>
             <div class="content-container word-list-container">
                 <div id="id_my_word_list">  </div>
             </div>
-        </div>
+        </div> -->
     </body>
 </html>

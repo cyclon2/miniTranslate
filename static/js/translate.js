@@ -54,11 +54,10 @@ function getWordRank(){
             var item = "";
             for(var d in res.data){
                 var word = res.data[d];
-                item += "<p>";
-                item += "<div class='side-word-count'>"+ word[3] +"</div>";
+                item += "<div class='card-panel padding-5'>";
                 item += "<div class='side-word'>"+ word[1] +"</div>";
                 item += "<div class='side-word-meaning'>"+ word[2] +"</div>";
-                item += "</p>"
+                item += "</div>"
             }
             $("#id_my_word_list").append(item);
         }
@@ -84,11 +83,11 @@ $(document).on("click", "#id_definitions_ko_btn", function(){
                     var word = words[w][0];
                     var dictid = words[w][1][0];
                     var meaning = words[w][1][1];
-                    item += "<p>";
+                    item += "<div class='card-panel padding-5'>";
                     item += "<span class='word-title'>"+ word +"</span>";
                     item += "<span class='word-meaning'>"+ meaning +"</span>";
                     item +="<button class='word-store-btn' data-id='"+dictid+"'>추가</button>"
-                    item += "</p>"
+                    item += "</div>"
                 }
             }
             $("#id_definitions_ko").append(item);
@@ -122,6 +121,9 @@ $(document).on("click", "#id_definitions_ko_btn", function(){
 //     })
 // });
 $(document).on("click", "#id_definitions_en_btn", function(){
+    if ($("#id_en_memo").val() == ""){
+        return false;
+    }
     $.ajax({
         url: "/api/definition/en",
         data: {
@@ -133,8 +135,10 @@ $(document).on("click", "#id_definitions_en_btn", function(){
             $("#id_definitions_en").empty();
             var item ="";
             for (w in words){
+                item += "<div class='card-panel padding-5'>";
                 item += "<p>" + words[w]+"</p>"
                 item += "<p>" + data.result[1].definitions+"</p>"
+                item += "</div>"
             }
             $("#id_definitions_en").append(item)
         }

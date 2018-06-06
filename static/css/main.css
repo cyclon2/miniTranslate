@@ -14,28 +14,35 @@ body {
     margin: 30px;
 }
 #id_ko_memo {
-    margin-right: 10px;
-    width: 500px;
-    min-height: 300px;
-    border: 2px solid var(--blue-color);
-    border-radius: 5px;
+    width: 100%;
     padding: 10px;
+    min-height: 300px;
     text-decoration: none;
     font-size: 16px;
+    border: none;
 }
 #id_ko_memo:focus {
     outline: none !important;
-    border:1px solid var(--blue-color);
     box-shadow: 0 0 10px var(--gray-color);
+}
+.padding-10 {
+    padding: 10px!important;
+}
+
+.padding-5 {
+    padding: 5px!important;
+}
+
+.padding-0 {
+    padding: 0!important;
 }
 
 #id_result {
-    width: 500px;
+    width: 100%;
     min-height: 300px;
-    border: 2px solid var(--gray-color);
-    border-radius: 5px;
     padding: 10px;
     font-size: 16px;
+    border: none;
 }
 .row-container {
     flex-direction: row;
@@ -93,6 +100,7 @@ body {
     font-size: 16px;
 }
 #id_definitions_ko > p{
+    background: white;
     border-bottom: 1px solid lightskyblue;
 }
 .ko-btn-container {

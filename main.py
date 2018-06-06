@@ -67,13 +67,18 @@ def user_loader(user_id):
 @app.route('/', methods=["GET"])
 @login_required
 def main():
-    return render_template("main.html", data={'ignore_words' : except_words })
+    personal_ignore_words = {}
+    return render_template("main.html", data={'ignore_words' : except_words, 'personal_ignore_words': personal_ignore_words })
 
 @app.route('/todo', methods=["GET"])
 @login_required
 def todo():
     return render_template("todo.html")
 
+@app.route('/statistics', methods=["GET"])
+@login_required
+def get_statistics():
+    return render_template("statistics.html")
 
 @app.route('/mypage', methods=["GET"])
 @login_required

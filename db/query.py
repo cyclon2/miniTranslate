@@ -13,6 +13,7 @@ DELETE_SENTENCE_QUERY="DELETE FROM `Sentence` WHERE `id`=%s;"
 
 ## Word
 SELECT_WORD_QUERY = "SELECT id FROM `Word` WHERE `word`='%s'"
+SELECT_IGNORE_WORD_QUERY_ALL = """SELECT * FROM `Word` WHERE `word`='%s' and `ignore`=1"""
 SELECT_WORD_QUERY_ALL = """SELECT * FROM `Word` WHERE `word`='%s'"""
 NO_MEANING_WORDS_QUERY = "SELECT word FROM `Word` WHERE `meaning` is NULL"
 UPDATE_MEANING_QUERY = "UPDATE `Word` set `meaning`=%s WHERE `word`=%s"
