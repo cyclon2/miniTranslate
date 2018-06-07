@@ -80,6 +80,11 @@ def todo():
 def get_statistics():
     return render_template("statistics.html")
 
+@app.route('/writing', methods=["GET"])
+@login_required
+def writing():
+    return render_template("writing.html")
+
 @app.route('/mypage', methods=["GET"])
 @login_required
 def mypage():

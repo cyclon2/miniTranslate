@@ -12,16 +12,19 @@
         </div>
     </li>
     {% if request.endpoint != 'main' %}
-    <li><a id="id_mypage_btn" onclick="javascript:location.href='/'">main</a></li>
+    <li><a id="id_mypage_btn" onclick="javascript:location.href='/'">번역</a></li>
     {% endif %}
     {% if request.endpoint != 'mypage' %}
-    <li><a id="id_mypage_btn" onclick="javascript:location.href='/mypage'">mypage</a></li>
+    <li><a id="id_mypage_btn" onclick="javascript:location.href='/mypage'">마이페이지</a></li>
     {% endif %}
     {% if request.endpoint != 'todo' %}
     <li><a id="id_mypage_btn" onclick="javascript:location.href='/todo'">todo</a></li>
     {% endif %}
     {% if request.endpoint != 'get_statistics' %}
     <li><a id="id_mypage_btn" onclick="javascript:location.href='/statistics'">통계</a></li>
+    {% endif %}
+    {% if request.endpoint != 'writing' %}
+    <li><a id="id_mypage_btn" onclick="javascript:location.href='/writing'">글쓰기</a></li>
     {% endif %}
     <li><a id="id_logout" onclick="javascript:location.href='/logout'">logout</a></li>
 </ul>

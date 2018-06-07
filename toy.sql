@@ -105,6 +105,7 @@ CREATE TABLE IF NOT EXISTS `Post` (
     `title` VARCHAR(32) NOT NULL,
     `content` TEXT NOT NULL,
     `open` BOOLEAN DEFAULT 1,
+    `visit` INT(5) unsigned NOT NULL DEFAULT 0,
     `nocomment` BOOLEAN DEFAULT 0,
     `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -113,11 +114,21 @@ CREATE TABLE IF NOT EXISTS `Post` (
     FOREIGN KEY (userid) REFERENCES `User`(`id`)
 );
 
+CREATE TABLE IF NOT EXISTS `UserLikePost` (
+    `id` INT(5) unsigned AUTO_INCREMENT NOT NULL,
+    `userid` INT(5) unsigned NOT NULL,
+    `postid` INT(5) unsigned NOT NULL,
+    `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (postid) REFERENCES `Post`(`id`),
+    FOREIGN KEY (userid) REFERENCES `User`(`id`)
+);
+
 CREATE TABLE IF NOT EXISTS `Comment` (
     `id` INT(5) unsigned AUTO_INCREMENT NOT NULL,
     `userid` INT(5) unsigned NOT NULL,
     `postid` INT(5) unsigned NOT NULL,
-    `comment` TEXT NOT NULL,
+    `comment` VARCHAR(200) NOT NULL,
     `open` BOOLEAN DEFAULT 1,
     `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -126,13 +137,26 @@ CREATE TABLE IF NOT EXISTS `Comment` (
     FOREIGN KEY (userid) REFERENCES `User`(`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `Memo` (
+CREATE TABLE IF NOT EXISTS `MemoCategory` (
     `id` INT(5) unsigned AUTO_INCREMENT NOT NULL,
     `userid` INT(5) unsigned NOT NULL,
-    `content` TEXT NOT NULL,
-    `open` BOOLEAN DEFAULT 1,
+    `title` VARCHAR(32) NOT NULL,
     `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`id`),
+    FOREIGN KEY (userid) REFERENCES `User`(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `Memo` (
+    `id` INT(5) unsigned AUTO_INCREMENT NOT NULL,
+    `userid` INT(5) unsigned NOT NULL,
+    `categoryid` INT(5) unsigned NOT NULL,
+    `content` VARCHAR(200) NOT NULL,
+    `open` BOOLEAN DEFAULT 1,
+    `like` BOOLEAN DEFAULT 0,
+    `created_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `updated_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (categoryid) REFERENCES `MemoCategory`(`id`),
     FOREIGN KEY (userid) REFERENCES `User`(`id`)
 );

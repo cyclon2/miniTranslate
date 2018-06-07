@@ -1,0 +1,62 @@
+<html>
+    <head>
+        {% include 'partials/head.html' %}
+    </head>
+    <style>
+        .ql-editor strong{
+            font-weight:bold;
+        }
+        .ql-editor {
+            font-size: 16px;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+            $('.sidenav').sidenav({'draggable': true});
+            var editor = new Quill('#id_writing', {
+                modules: {
+                    toolbar:  [
+                        ['bold', 'italic', 'underline', 'strike'], 
+                        ['blockquote', 'code-block'],
+
+                        [{ 'header': 1 }, { 'header': 2 }],              
+                        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+                        [{ 'script': 'sub'}, { 'script': 'super' }],     
+                        [{ 'indent': '-1'}, { 'indent': '+1' }],         
+                        [{ 'direction': 'rtl' }],                       
+
+                        [{ 'size': ['small', false, 'large', 'huge'] }], 
+                        [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+                        [{ 'color': [] }, { 'background': [] }], 
+                        [{ 'font': [] }],
+                        [{ 'align': [] }],
+                        ['clean']             
+                    ]
+                },
+                theme: 'snow',
+                placeholder: "글쓰기.."
+            });
+        });
+    </script>
+    <body>
+        <nav class="teal lighten-3">
+            <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large">
+                <i class="material-icons">menu</i>
+            </a>
+        </nav>
+        <div class="row" style="margin-top: 20px;">
+            <div class="col m1"></div>
+            <div class="col s12 m10">
+                <input type="text" placeholder="제목" />
+                <div class="" id="id_writing"></div>
+            </div>
+            <div class="col m1"></div>
+        </div>
+        <div class="row">
+            <div class="col m10"></div>
+            <div class="col m1"><button class="btn">포스트</button></div>
+        </div>
+        {% include 'partials/sidebar.html' %}
+    </body>
+</html>
