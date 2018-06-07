@@ -8,7 +8,11 @@
         }
     </style>
     <body>
-        {% include 'partials/header.html' %}
+        <nav class="indigo lighten-4">
+            <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large">
+                <i class="material-icons">menu</i>
+            </a>
+        </nav>
         <div class="column-container">
             <p>1. 회원 가입</p>
             <p>2. 회원 정보 수정</p>
@@ -24,6 +28,8 @@
             <p>12. 이전 상태 자동저장 만들기</p>
             <p>13. 미니 게시판 만들기 https://quilljs.com/playground/</p>
             <p>14. contact page</p>
+            <p>15. js css uglify</p>
         </div>
+        {% include 'partials/sidebar.html' %}
     </body>
 </html>

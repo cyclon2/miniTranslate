@@ -1,5 +1,6 @@
 $(document).ready(function(){
     getWordRank();
+    $('.sidenav').sidenav({'draggable': true});
 });
 
 $(document).on("change keyup", "#id_ko_memo", function(){
