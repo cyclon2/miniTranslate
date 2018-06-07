@@ -1,0 +1,27 @@
+<ul id="slide-out" class="sidenav">
+    <li>
+        <div class="user-view">
+            <div class="background">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRDmjJ2fmU21MCd2C8nLaogTwqV2y4zfLylU7Rd9i3vKoz7yMyr">
+            </div>
+            <a href="#user"><img class="circle"></a>
+            <a href="#name"><span class="white-text name">{{ current_user.user_id }}</span></a>
+            {% if current_user.email != None %}
+            <a href="#email"><span class="white-text email">{{ current_user.email }}</span></a>
+            {% endif %}
+        </div>
+    </li>
+    {% if request.endpoint != 'main' %}
+    <li><a id="id_mypage_btn" onclick="javascript:location.href='/'">main</a></li>
+    {% endif %}
+    {% if request.endpoint != 'mypage' %}
+    <li><a id="id_mypage_btn" onclick="javascript:location.href='/mypage'">mypage</a></li>
+    {% endif %}
+    {% if request.endpoint != 'todo' %}
+    <li><a id="id_mypage_btn" onclick="javascript:location.href='/todo'">todo</a></li>
+    {% endif %}
+    {% if request.endpoint != 'get_statistics' %}
+    <li><a id="id_mypage_btn" onclick="javascript:location.href='/statistics'">통계</a></li>
+    {% endif %}
+    <li><a id="id_logout" onclick="javascript:location.href='/logout'">logout</a></li>
+</ul>

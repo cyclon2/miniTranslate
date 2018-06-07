@@ -7,8 +7,17 @@
             align-items: stretch;
         }
     </style>
+    <script>
+        $(document).ready(function(){
+            $('.sidenav').sidenav({'draggable': true});
+        });
+    </script>
     <body>
-        {% include 'partials/header.html' %}
+        <nav class="teal lighten-3">
+            <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large">
+                <i class="material-icons">menu</i>
+            </a>
+        </nav>
         <div class="container column-container works-container">
             <h3>Words</h3>
             {% for w in data.words %}
@@ -45,5 +54,6 @@
             </div>
             {% endfor %}
         </div>
+        {% include 'partials/sidebar.html' %}
     </body>
 </html>
