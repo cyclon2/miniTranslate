@@ -30,6 +30,13 @@ def notauth_func():
     json_res = {'ok': True, 'msg': 'notauth_func(%s)' % request.json}
     return jsonify(json_res)
 
+
+##########
+#        #
+# LOGIN  #
+#        #
+##########
+
 @app.route('/login', methods=['POST'])
 def login():
     user = User(user_id = request.form['user_id'], password=request.form['password'])
@@ -39,6 +46,7 @@ def login():
     else:
         return render_template("login.html", message = "Invalid user_id or password")
     return redirect("/")
+
 
 @app.route('/login', methods=['GET'])
 def login_page():
@@ -64,6 +72,12 @@ def logout():
 def user_loader(user_id):
     user =  find_userid(user_id)
     return user
+
+#############
+#           #
+# TRANSLATE #
+#           #
+#############
 
 @app.route('/', methods=["GET"])
 @login_required

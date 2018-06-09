@@ -106,3 +106,9 @@ body {
 .ko-btn-container {
     position: relative;
 }
+.ql-editor strong{
+    font-weight:bold;
+}
+.ql-editor {
+    font-size: 16px;
+}
