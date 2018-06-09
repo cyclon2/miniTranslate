@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    getWordRank();
     $('.sidenav').sidenav({'draggable': true});
 });
 

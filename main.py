@@ -6,6 +6,7 @@ from flask_login import LoginManager, login_required, login_user, current_user, 
 import asyncio
 from bs4 import BeautifulSoup
 from db.User import User, find_userid
+from db.Post import PostApi, Post
 import db.word as wordObj
 from db.sentence import Sentence
 from utils.dic_daum import search_rough_all, search_detail_all
@@ -80,9 +81,26 @@ def todo():
 def get_statistics():
     return render_template("statistics.html")
 
-@app.route('/writing', methods=["GET"])
+@app.route('/post/<post_id>', methods=["GET"])
 @login_required
-def writing():
+def get_post(post_id):
+    post = Post.get(post_id)
+    return render_template("post.html", post=post)
+
+@app.route('/post/list', methods=["GET"])
+@login_required
+def post_list():
+    posts = current_user.get_posts()
+    return render_template("post_list.html", data=posts)
+
+@app.route('/post/write', methods=["GET"])
+@login_required
+def post_write():
+    return render_template("writing.html")
+
+@app.route('/post/write/<post_id>', methods=["GET"])
+@login_required
+def post_edit():
     return render_template("writing.html")
 
 @app.route('/mypage', methods=["GET"])
@@ -136,6 +154,8 @@ def get_definition_en():
 api.add_resource(Sentence, '/api/sentence', '/api/sentence/<int:sentenceid>')
 api.add_resource(wordObj.Word, '/api/word')
 api.add_resource(wordObj.Word2, '/api/words')
+
+api.add_resource(PostApi, '/api/post')
 
 if __name__ == '__main__':
     app.run("0.0.0.0", port=8000, debug=True)

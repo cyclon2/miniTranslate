@@ -66,7 +66,30 @@ class User:
         cursor.execute(SENTENCE_QUERY % (self.user_id))
         info['sentences'] = list(cursor.fetchall())
         conn.close()
-        return  info   
+        return info
+
+    def get_books(self):
+        conn = pymysql.connect(host=DB_HOST, 
+            user=DB_USER, password=DB_PASSWORD,
+            db='toy', charset='utf8'
+        )
+        cursor = conn.cursor()
+        ######
+        # books 
+        ######
+        conn.close()
+        return info 
+
+    def get_posts(self):
+        conn = pymysql.connect(host=DB_HOST, 
+            user=DB_USER, password=DB_PASSWORD,
+            db='toy', charset='utf8'
+        )
+        cursor = conn.cursor()
+        cursor.execute(SELECT_POSTS_QUERY % (self.user_id))
+        data = list(cursor.fetchall())
+        conn.close()
+        return data
 
 def find_userid(user_id):
     conn = pymysql.connect(host=DB_HOST, 

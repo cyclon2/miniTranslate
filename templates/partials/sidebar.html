@@ -23,8 +23,11 @@
     {% if request.endpoint != 'get_statistics' %}
     <li><a id="id_mypage_btn" onclick="javascript:location.href='/statistics'">통계</a></li>
     {% endif %}
-    {% if request.endpoint != 'writing' %}
-    <li><a id="id_mypage_btn" onclick="javascript:location.href='/writing'">글쓰기</a></li>
+    {% if request.endpoint != 'post_write' %}
+    <li><a id="id_mypage_btn" onclick="javascript:location.href='/post/write'">포스트쓰기</a></li>
+    {% endif %}
+    {% if request.endpoint != 'post_list' %}
+    <li><a id="id_mypage_btn" onclick="javascript:location.href='/post/list'">내 포스트보기</a></li>
     {% endif %}
     <li><a id="id_logout" onclick="javascript:location.href='/logout'">logout</a></li>
 </ul>

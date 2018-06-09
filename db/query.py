@@ -20,3 +20,14 @@ UPDATE_MEANING_QUERY = "UPDATE `Word` set `meaning`=%s WHERE `word`=%s"
 INSERT_SENTENCE_QUERY="""INSERT INTO `Sentence` (`userid`, `raw`, `translated`) VALUES ((SELECT id FROM `User` WHERE userid=%s), %s, %s);"""
 INSERT_WORD_QUERY = "INSERT INTO `Word`(`word`, `dictid`) VALUES ('%s', '%s')"
 INSERT_WORD_QUERY_MEANING = "INSERT INTO `Word`(`word`, `dictid`, `meaning`) VALUES ('%s', '%s', '%s')"
+
+## Book
+SELECT_BOOK_QUERY = """SELECT * FROM `Book` WHERE `userid`=(SELECT id FROM `User` WHERE userid=%s)"""
+
+## Post
+SELECT_POST_BOOKID_QUERY = """SELECT * FROM `Post` WHERE `bookid`=%s and `userid`=(SELECT id FROM `User` WHERE userid=%s)"""
+SELECT_POSTS_QUERY = """SELECT id, title, content, updated_time FROM `Post` WHERE `userid`=(SELECT id FROM `User` WHERE `userid`='%s') ORDER BY `updated_time` DESC """
+INSERT_POST_QUERY = """INSERT into `Post` (`userid`, `bookid`, `title`, `content`) VALUES ((SELECT id FROM `User` WHERE `userid`='%s'), (SELECT id FROM `Book` WHERE `title`='%s'), "%s","%s")"""
+SELECT_POST_QUERY = """SELECT title, content, updated_time, (SELECT userid from User where p.userid=id) FROM `Post` p WHERE `id`=%s"""
+
+##`userid`=(SELECT id FROM `User` WHERE `userid`='%s') and 

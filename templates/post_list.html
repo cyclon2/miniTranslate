@@ -1,0 +1,35 @@
+<html>
+    <head>
+        {% include 'partials/head.html' %}
+    </head>
+    <style>
+        .column-container {
+            margin: 30px;
+        }
+    </style>
+    <script>
+        $(document).on('click', '.post', function(){
+            location.href='/post/'+$(this).data('id');
+        });
+    </script>
+    <body>
+        <nav class="indigo lighten-4">
+            <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large">
+                <i class="material-icons">menu</i>
+            </a>
+        </nav>
+        <div class="row">
+            <div class="col m1"></div>
+            <div class="col s12 m10">
+                {% for item in data %}
+                <div class="card-panel post" data-id="{{ item[0] }}">
+                    <div>{{ item[1] }}</div>
+                    <hr>
+                    <div>{{ item[2]|safe|truncate(250) }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% include 'partials/sidebar.html' %}
+    </body>
+</html>
