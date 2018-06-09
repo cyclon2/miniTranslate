@@ -12,7 +12,7 @@ $(document).on('click', '#id_post', function(){
             "content" : content
         },
         success: function(res){
-            console.log(res)
+            location.href="/post/list";
         }
     })
 });
