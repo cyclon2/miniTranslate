@@ -81,28 +81,6 @@ def todo():
 def get_statistics():
     return render_template("statistics.html")
 
-@app.route('/post/<post_id>', methods=["GET"])
-@login_required
-def get_post(post_id):
-    post = Post.get(post_id)
-    return render_template("post.html", post=post)
-
-@app.route('/post/list', methods=["GET"])
-@login_required
-def post_list():
-    posts = current_user.get_posts()
-    return render_template("post_list.html", data=posts)
-
-@app.route('/post/write', methods=["GET"])
-@login_required
-def post_write():
-    return render_template("writing.html")
-
-@app.route('/post/write/<post_id>', methods=["GET"])
-@login_required
-def post_edit():
-    return render_template("writing.html")
-
 @app.route('/mypage', methods=["GET"])
 @login_required
 def mypage():
@@ -149,6 +127,35 @@ def get_definition_en():
     lemmatized_words = list(set(map(lemmatize, words)))
     definition_words = list(map(definition, lemmatized_words))
     return json.dumps({ "result" : [ {"lemmatized":lemmatized_words},{"definitions":definition_words}] }, ensure_ascii=False), 200
+
+
+##########
+#        #
+#  POST  #
+#        #
+##########
+
+@app.route('/post/<post_id>', methods=["GET"])
+@login_required
+def get_post(post_id):
+    post = Post.get(post_id)
+    return render_template("post/post.html", post=post)
+
+@app.route('/post/list', methods=["GET"])
+@login_required
+def post_list():
+    posts = current_user.get_posts()
+    return render_template("post/list.html", data=posts)
+
+@app.route('/post/write', methods=["GET"])
+@login_required
+def post_write():
+    return render_template("post/write.html")
+
+@app.route('/post/write/<post_id>', methods=["GET"])
+@login_required
+def post_edit():
+    return render_template("post/edit.html")
 
 
 api.add_resource(Sentence, '/api/sentence', '/api/sentence/<int:sentenceid>')

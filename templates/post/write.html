@@ -1,0 +1,34 @@
+<html>
+    <head>
+        {% include '../partials/head.html' %}
+        <script src="/static/js/post.js"></script>
+    </head>
+    <style>
+        .ql-editor strong{
+            font-weight:bold;
+        }
+        .ql-editor {
+            font-size: 16px;
+        }
+    </style>
+    <body>
+        <nav class="teal lighten-3">
+            <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large">
+                <i class="material-icons">menu</i>
+            </a>
+        </nav>
+        <div class="row" style="margin-top: 20px;">
+            <div class="col m1"></div>
+            <div class="col s12 m10">
+                <input type="text" name="post_title" placeholder="제목" />
+                <div class="" id="id_writing"></div>
+            </div>
+            <div class="col m1"></div>
+        </div>
+        <div class="row">
+            <div class="col m10"></div>
+            <div class="col m1"><button class="btn" id="id_post">포스트</button></div>
+        </div>
+        {% include '../partials/sidebar.html' %}
+    </body>
+</html>
